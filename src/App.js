@@ -1,25 +1,33 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import TasksPage from './components/TasksPage';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+    onCreateTask = ({ title, description }) => {
+        this.props.dispatch({
+            type: 'CREATE_TASK',
+            payload: {
+                title,
+                description,
+            }
+        });
+    }
+    render(){
+        return (
+            <div className="main-content">
+                <TasksPage 
+                    tasks={this.props.tasks}
+                    onCreateTask={this.onCreateTask}
+                />
+            </div>
+        );
+    }
 }
 
-export default App;
+function mapStateToProps(state){
+    return {
+        tasks: state.tasks
+    }
+}
+
+export default connect(mapStateToProps)(App);
