@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import TaskList from "./TaskList";
-
-const TASK_STATUSES = ['Unstarted', 'In Progress', 'Completed'];
+import { TASK_STATUSES } from "../constants"
 
 class TasksPage extends Component {
     constructor(props){
@@ -51,6 +50,7 @@ class TasksPage extends Component {
                     key={status}
                     status={status}
                     tasks={statusTasks}
+                    onStatusChange={this.props.onStatusChange}
                 />
             );
         });
