@@ -70,9 +70,8 @@ export function editTaskSucceeded(task){
 
 export function editTask(id, params = {}){
     return (dispatch, getState) => {
-        console.log(getState())
-        const task = getTaskById(getState().tasks, id);
-        console.log(task);
+        console.log(getState().tasks.tasks)
+        const task = getTaskById(getState().tasks.tasks, id);
         const updatedTask = Object.assign({}, task, params);
 
         api.editTask(id, updatedTask).then(resp => {
@@ -82,5 +81,6 @@ export function editTask(id, params = {}){
 }
 
 function getTaskById(tasks, id){
+    console.log(tasks);
     return tasks.find(task => task.id === id);
 }
