@@ -12,6 +12,7 @@ const Task = props => {
                         <option key={status} value={status}>{status}</option>
                     ))}
                 </select>
+                <div className='task-timer'>{props.task.timer}s</div>
             </div>
             <hr />
             <div className="task-body">{props.task.description}</div>
