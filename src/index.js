@@ -9,6 +9,11 @@ import tasks from './reducers';
 import reportWebVitals from './reportWebVitals';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import tasksReducer from './reducers';
+import { logger, analytics } from './middleware/logger';
+import createSagaMiddleware from '@redux-saga/core';
+import rootSaga from './sagas';
+
+
 
 const rootReducer = (state = {}, action) => {
     return {
@@ -16,7 +21,11 @@ const rootReducer = (state = {}, action) => {
     };
 };
 
-const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk)));
+const sagaMiddleware = createSagaMiddleware();
+
+const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk, sagaMiddleware)));
+
+sagaMiddleware.run(rootSaga);
 
 ReactDOM.render(
     <React.StrictMode>
