@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import TasksPage from './components/TasksPage';
 import FlashMessage from "./components/FlashMessage";
 import { createTask, editTask, fetchTasks, filterTasks } from './actions';
-import { getFilteredTasks } from './reducers/index';
+import { getGroupedAndFilteredTasks } from './reducers/index';
 
 class App extends Component {
     componentDidMount(){
@@ -46,7 +46,7 @@ class App extends Component {
 function mapStateToProps(state){
     const { isLoading, error} = state.tasks;
 
-    return { tasks: getFilteredTasks(state), isLoading, error };
+    return { tasks: getGroupedAndFilteredTasks(state), isLoading, error };
 }
 
 export default connect(mapStateToProps)(App);
