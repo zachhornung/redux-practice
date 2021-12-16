@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import TasksPage from './components/TasksPage';
 import FlashMessage from "./components/FlashMessage";
 import { createTask, editTask, fetchTasks, filterTasks } from './actions';
+import { getFilteredTasks } from './reducers/index';
 
 class App extends Component {
     componentDidMount(){
@@ -43,13 +44,9 @@ class App extends Component {
 }
 
 function mapStateToProps(state){
-    const { isLoading, error, searchTerm } = state.tasks;
+    const { tasks, isLoading, error, searchTerm } = state.tasks;
 
-    const tasks = state.tasks.tasks.filter(task => {
-        return task.title.match(new RegExp(searchTerm, 'i'));
-    });
-
-    return { tasks, isLoading, error };
+    return { tasks: getFilteredTasks(tasks, searchTerm), isLoading, error };
 }
 
 export default connect(mapStateToProps)(App);
